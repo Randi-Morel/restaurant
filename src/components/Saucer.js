@@ -1,8 +1,10 @@
 import React from "react";
 import { firestore } from "../firebase";
+import Modal from "./Modal";
 
 const Saucer = ({ product }) => {
   const existenceRef = React.useRef(product.existence);
+  const [showModal, setShowModal] = React.useState(false);
 
   const { id, name, image, category, price, description, existence } = product;
 
@@ -20,6 +22,8 @@ const Saucer = ({ product }) => {
   const handleEdit = () => {};
 
   const handleDelete = () => {};
+
+  const handleOnClose = () => setShowModal(false);
 
   return (
     <div className="w-full px-3 mb-4">
@@ -41,9 +45,13 @@ const Saucer = ({ product }) => {
                 </select> */}
               {/* </label> */}
               <div className="inline-block  mt-5">
-                <button className="bg-green-400 m-2 shadow appearance-none border rounded py-2 px-3 leading-tight focus:outline-none focus:shadow-outline-none hover:bg-green-700">
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="bg-green-400 m-2 shadow appearance-none border rounded py-2 px-3 leading-tight focus:outline-none focus:shadow-outline-none hover:bg-green-700"
+                >
                   Edit
                 </button>
+                <Modal onClose={handleOnClose} visible={showModal} />
                 <button className="bg-red-400 m-2 shadow appearance-none border rounded py-2 px-3 leading-tight focus:outline-none focus:shadow-outline-none hover:bg-red-700">
                   Delete
                 </button>
